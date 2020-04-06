@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>设置淘宝代理 | 不解风情</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://topul.github.io/favicon.ico?v=1586176594354">
+<link rel="stylesheet" href="https://topul.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="
+layout: post
+title: npm设置淘宝代理
+categories: blog
+npm config set registry https://registry.npm.taobao.org
+npm info undersc..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://topul.github.io">
+        <img src="https://topul.github.io/images/avatar.png?v=1586176594354" class="site-logo">
+        <h1 class="site-title">不解风情</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新，这里就记录一些随记吧
+    </div>
+    <div class="site-footer">
+      © 2020  topul <a href="http://beian.miit.gov.cn/" target="_blank">粤ICP备19140469号</a> | <a class="rss" href="https://topul.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">设置淘宝代理</h2>
+            <div class="post-date">2020-04-06</div>
+            
+            <div class="post-content" v-pre>
+              <hr>
+<h2 id="layout-posttitle-npm设置淘宝代理categories-blog">layout: post<br>
+title: npm设置淘宝代理<br>
+categories: blog</h2>
+<pre><code class="language-bash">npm config set registry https://registry.npm.taobao.org
+npm info underscore
+</code></pre>
+<p>如果配置成功,第二步会有字符串返回</p>
+<p>推荐使用yarn进行包管理</p>
+<pre><code class="language-bash"># 安装yarn
+npm i -g yarn
+</code></pre>
+<h3 id="cli-命令比较">CLI 命令比较</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">npm (v5)</th>
+<th style="text-align:left">Yarn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>npm install</code></td>
+<td style="text-align:left"><code>yarn install</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>(不适用)</strong></td>
+<td style="text-align:left"><code>yarn install --flat</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>(不适用)</strong></td>
+<td style="text-align:left"><code>yarn install --har</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>npm install --no-package-lock</code></td>
+<td style="text-align:left"><code>yarn install --no-lockfile</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>(不适用)</strong></td>
+<td style="text-align:left"><code>yarn install --pure-lockfile</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>npm install [package]</code></td>
+<td style="text-align:left"><code>yarn add [package]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>npm install [package] --save-dev</code></td>
+<td style="text-align:left"><code>yarn add [package] --dev</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>(不适用)</strong></td>
+<td style="text-align:left"><code>yarn add [package] --peer</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>npm install [package] --save-optional</code></td>
+<td style="text-align:left"><code>yarn add [package] --optional</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>npm install [package] --save-exact</code></td>
+<td style="text-align:left"><code>yarn add [package] --exact</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>(不适用)</strong></td>
+<td style="text-align:left"><code>yarn add [package] --tilde</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>npm install [package] --global</code></td>
+<td style="text-align:left"><code>yarn global add [package]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>npm update --global</code></td>
+<td style="text-align:left"><code>yarn global upgrade</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>npm rebuild</code></td>
+<td style="text-align:left"><code>yarn install --force</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>npm uninstall [package]</code></td>
+<td style="text-align:left"><code>yarn remove [package]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>npm cache clean</code></td>
+<td style="text-align:left"><code>yarn cache clean [package]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>rm -rf node_modules &amp;&amp; npm install</code></td>
+<td style="text-align:left"><code>yarn upgrade</code></td>
+</tr>
+</tbody>
+</table>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://topul.github.io/post/charles-an-zhuang-zheng-shu-dao-xiao-mi-shou-ji/">
+                  <h3 class="post-title">
+                    Charles安装证书到小米手机
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

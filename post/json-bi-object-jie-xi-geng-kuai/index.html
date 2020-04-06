@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>JSON比Object解析更快？ | 不解风情</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://topul.github.io/favicon.ico?v=1586176594354">
+<link rel="stylesheet" href="https://topul.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="JavaScript 应用程序（尤其是 Web 应用程序）通常使用对象来表示状态或其他数据，特别是使用 React 或 Redux 之类的框架构建的 web 应用，并且这些应用通常依赖这些数据进行初始渲染。这时候，这个 JavaScript..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://topul.github.io">
+        <img src="https://topul.github.io/images/avatar.png?v=1586176594354" class="site-logo">
+        <h1 class="site-title">不解风情</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新，这里就记录一些随记吧
+    </div>
+    <div class="site-footer">
+      © 2020  topul <a href="http://beian.miit.gov.cn/" target="_blank">粤ICP备19140469号</a> | <a class="rss" href="https://topul.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">JSON比Object解析更快？</h2>
+            <div class="post-date">2020-04-06</div>
+            
+            <div class="post-content" v-pre>
+              <p>JavaScript 应用程序（尤其是 Web 应用程序）通常使用对象来表示状态或其他数据，特别是使用 React 或 Redux 之类的框架构建的 web 应用，并且这些应用通常依赖这些数据进行初始渲染。这时候，这个 JavaScript 对象就一直处在关键渲染路径上，直到所有数据被加载，解析，编译和执行前，用户只能盯着白屏。</p>
+<p>怎么能加快首次渲染速度呢？</p>
+<p><strong>方法 1:服务端渲染</strong></p>
+<p>服务端渲染是把数据在服务端渲染完成后，将渲染的 HTML 发送给客户端，这样客户端就不需要使用 JavaScript 了。<br>
+但不过不实用服务端渲染呢？</p>
+<p><strong>方法 2:JSON.parse</strong></p>
+<p>由于 JSON 语法比 JavaScript 语法简单得多，因此与 JavaScript 相比，JSON 的解析效率更高。所以可以将 JSON 应用于提高需要大型对象（例如内联 Redux 存储）的 Web 应用的启动性能。将数据作为 JavaScript 对象文字内联，比如：</p>
+<pre><code class="language-javascript">const data = { foo: 42, bar: 1337 }; // 🐌
+</code></pre>
+<p>它可以以 JSON 字符串化形式表示，然后在运行时进行 JSON 解析:</p>
+<pre><code class="language-javascript">const data = JSON.parse('{&quot;foo&quot;:42,&quot;bar&quot;:1337}'); // 🚀
+</code></pre>
+<p>你认为这两个代码哪个更快呢？</p>
+<p>事实证明，JSON 方法要快得多！虽然感觉不可思议，JavaScript 对象感觉是更直接的方法，而 JSON.parse 中间又转化了一层，这是为什么呢？</p>
+<p>对于 JavaScript 解析器来说，JSON 大量的数据只是一个 StringLiteral 令牌，只不过是具有一个论点的 CallExpression。<br>
+而同样的 JS 对象包含了很多的标记，每个属性名都是标识符或类似字符串的文字，在完整解析之前，每个值都可以是任意类型的，它们可以是嵌套的对象或数组，这样就会有更多的标识符需要识别。</p>
+<p>因此，与 JSON.parse 示例相比，JavaScript 解析器要做的工作多了太多了。</p>
+<p><strong>那么两个代码速度到底相差多少呢？</strong></p>
+<p>由于仅对JSON字符串求值一次，与JavaScript对象文字相比，JSON.parse方法就快得多，尤其是对于硬重载。有一个很好的经验法则是将此技术应用于10 kB或更大的对象。</p>
+<figure data-type="image" tabindex="1"><img src="../imgs/json.svg" alt="img" loading="lazy"></figure>
+<p>可以看到，与JavaScript对象相比，JSON.parse（'…'）的解析，编译和执行速度要快得多-不仅在V8中（速度是后者的1.7倍），而是在所有主要的JavaScript引擎中。</p>
+<p>在将JS对象用于大量数据时，还存在其他风险：它们可能会被解析两次！</p>
+<p>1、数据加载完成时</p>
+<p>2、数据被延迟解析的时候</p>
+<p>第一次解析是无法避免的。不过，可以通过将对象放在代码顶部或</p>
+<p>中来避免第二次解析。</p>
+<p>怎么样开始使用JSON.parse呢？</p>
+<p>由于JS对象更具有可读性，所以还是建议在源码中使用对象的形式。不过webpack有插件可以帮助我们将对象自动转化成JSON.parse：</p>
+<p>1、json-parse-webpack</p>
+<p>2、json-parse-babel</p>
+<p>大家可以尝试一下。</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://topul.github.io/post/react-props-vs-vue-props/">
+                  <h3 class="post-title">
+                    React props vs Vue props
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

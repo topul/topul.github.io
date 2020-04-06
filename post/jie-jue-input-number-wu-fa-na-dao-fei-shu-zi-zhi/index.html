@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>解决input number无法拿到非数字值 | 不解风情</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://topul.github.io/favicon.ico?v=1586176594354">
+<link rel="stylesheet" href="https://topul.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="在w3c规范中，如果input type=number输入了一些非数字的字符，就会返回空值，这在做输入校验的时候就不行了，会认为输入框没有输入。好在，input属性里有一个validity，其中的badInput属性可以判断值是否合法。合法..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://topul.github.io">
+        <img src="https://topul.github.io/images/avatar.png?v=1586176594354" class="site-logo">
+        <h1 class="site-title">不解风情</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新，这里就记录一些随记吧
+    </div>
+    <div class="site-footer">
+      © 2020  topul <a href="http://beian.miit.gov.cn/" target="_blank">粤ICP备19140469号</a> | <a class="rss" href="https://topul.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">解决input number无法拿到非数字值</h2>
+            <div class="post-date">2020-04-06</div>
+            
+            <div class="post-content" v-pre>
+              <p>在w3c规范中，如果<code>input type=number</code>输入了一些非数字的字符，就会返回空值，这在做输入校验的时候就不行了，会认为输入框没有输入。好在，input属性里有一个<code>validity</code>，其中的badInput属性可以判断值是否合法。合法值是<code>false</code>，非法则为<code>true</code>。</p>
+<p>通过<code>input.validity.badInput</code>就可以判断出当前输入值是否合法，可以跟无输入时的状态进行区分了。</p>
+<p>参考文档：https://www.w3.org/TR/html5/sec-forms.html#number-state-typenumber</p>
+<p>https://developer.mozilla.org/en-US/docs/Web/API/ValidityState</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://topul.github.io/post/she-zhi-tao-bao-dai-li/">
+                  <h3 class="post-title">
+                    设置淘宝代理
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>git设置免密访问github | 不解风情</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://topul.github.io/favicon.ico?v=1586176594354">
+<link rel="stylesheet" href="https://topul.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="
+layout: post
+title: git设置免密访问github
+categories: blog
+由于你的本地 Git 仓库和 GitHub 仓库之间的传输是通过SSH加密的，所以我们需要配置验证信息：
+使用以下命令生成 SSH ..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://topul.github.io">
+        <img src="https://topul.github.io/images/avatar.png?v=1586176594354" class="site-logo">
+        <h1 class="site-title">不解风情</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新，这里就记录一些随记吧
+    </div>
+    <div class="site-footer">
+      © 2020  topul <a href="http://beian.miit.gov.cn/" target="_blank">粤ICP备19140469号</a> | <a class="rss" href="https://topul.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">git设置免密访问github</h2>
+            <div class="post-date">2020-04-06</div>
+            
+            <div class="post-content" v-pre>
+              <hr>
+<h2 id="layout-posttitle-git设置免密访问githubcategories-blog">layout: post<br>
+title: git设置免密访问github<br>
+categories: blog</h2>
+<p>由于你的本地 Git 仓库和 GitHub 仓库之间的传输是通过SSH加密的，所以我们需要配置验证信息：</p>
+<p>使用以下命令生成 SSH Key：</p>
+<pre><code class="language-ba">ssh-keygen -t rsa -C &quot;youremail@example.com&quot;
+</code></pre>
+<p>后面的 your_email@youremail.com改为你在 Github 上注册的邮箱，之后会要求确认路径和输入密码，我们这使用默认的一路回车就行。成功的话会在 ~/ 下生成 .ssh 文件夹，进去，打开 <strong>id_rsa.pub</strong>，复制里面的 <strong>key</strong>。</p>
+<p>回到 github 上，进入 Account =&gt; Settings（账户配置）。</p>
+<figure data-type="image" tabindex="1"><img src="https://www.runoob.com/wp-content/uploads/2015/03/48840BF0-992F-4CCC-A388-15CB74819D88.jpg" alt="img" loading="lazy"></figure>
+<p>左边选择 <strong>SSH and GPG keys</strong>，然后点击 <strong>New SSH key</strong> 按钮,title 设置标题，可以随便填，粘贴在你电脑上生成的 key。</p>
+<figure data-type="image" tabindex="2"><img src="https://www.runoob.com/wp-content/uploads/2015/03/106AD534-A38A-47F3-88A3-B7BE3F2FEEF1.jpg" alt="img" loading="lazy"></figure>
+<p>添加成功后界面如下所示</p>
+<figure data-type="image" tabindex="3"><img src="https://www.runoob.com/wp-content/uploads/2015/03/EC8F8872-091A-4CAB-90F2-616F34F350A9.jpg" alt="img" loading="lazy"></figure>
+<p>为了验证是否成功，输入以下命令：</p>
+<pre><code class="language-bash">$ ssh -T git@github.com
+Hi tianqixin! You've successfully authenticated, but GitHub does not provide shell access.
+</code></pre>
+<p>然后<a href="https://git-scm.com/book/zh/v1/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-%E9%85%8D%E7%BD%AE-Git">配置git</a></p>
+<pre><code class="language-bash">$ git config --global user.name &quot;John Doe&quot;
+$ git config --global user.email johndoe@example.com
+</code></pre>
+<p>此时即可正常使用。</p>
+<p>如果你使用HTTPS克隆GitHub仓库，那就需要使用凭据帮助程序告诉Git每次与GitHub交谈时都记住你的GitHub用户名和密码。<a href="https://help.github.com/en/articles/caching-your-github-password-in-git">github帮助</a></p>
+<ol>
+<li>
+<p>在命令行中，输入以下命令:</p>
+<pre><code class="language-shell">$ git config --global credential.helper cache
+# Set git to use the credential memory cache
+</code></pre>
+</li>
+<li>
+<p>如果需要改变密码缓存的过期时间，输入以下命令:</p>
+<pre><code class="language-shell">$ git config --global credential.helper 'cache --timeout=3600'
+# Set the cache to timeout after 1 hour (setting is in seconds)
+</code></pre>
+</li>
+</ol>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://topul.github.io/post/json-bi-object-jie-xi-geng-kuai/">
+                  <h3 class="post-title">
+                    JSON比Object解析更快？
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
